@@ -2,7 +2,7 @@ Package: rdatacollider
 Type: Package
 Title: Large R Data Collider data aqusition system
 Version: 0.1.0
-Author: Who wrote it
+Author: Michał Nurek
 Maintainer: Michał Nurek <michal.nurek.dokt@pw.edu.pl>
 Description: The functions allow user to
     Run acquisition
@@ -11,3 +11,4 @@ Description: The functions allow user to
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
+Imports: ggplot2, patchwork
