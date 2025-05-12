@@ -1,0 +1,68 @@
+---
+title: "Large R Data Collider data aquisition"
+author: "Michał Nurek"
+date: "2025-05-12"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+
+The rdatacollider package contains function that allows user to:
+
+- Run Large R Data Collider data acquisition
+- Summarize data acquistion runs
+- Plot the data from measured amplitudes analysis file
+
+To learn more about the general concept of the data acquisition systems visit [this Wikipedia site](https://en.wikipedia.org/wiki/Data_acquisition).
+
+## Usage
+
+### Running acuqisition
+
+The base function in the package is LargeRDataCollider.startDataAcquisition(). The user can configure a detection threshold value. When exceeded the acquisition single channel event counter increments (or not otherwise). The number of active channels and the number of runs in the acquisition procedure can be assesed. The function output represents the DataAcquisition object which basically contains the event counts for every single channel as well as the sum of the events, the mean of the amplitude values and the standard deviation of the amplitude values for every single run. 
+
+```{r start}
+dataAcquisition <- rdatacollider::LargeRDataCollider.startDataAcquisition(acquisitionThreshold = 20, 
+                                                                          numberOfRuns = 100,
+                                                                          dataAcquisitionObj = NULL)
+dataAcquisition <- rdatacollider::LargeRDataCollider.startDataAcquisition(acquisitionThreshold = c(20,18), 
+                                                                          numberOfRuns = 10,
+                                                                          dataAcquisitionObj = dataAcquisition)
+dataAcquisition
+```
+
+### Summarizing acquisition 
+
+The LargeRDataCollider.summarizeDataAcquisition function provides two functionalities. One is for displaying the summary of DataAcquisition object content. In this case it is the sum of all events in the acquisition, the mean value of the mean amplitude values and the mean value of the amplitude standard deviation values. The second one allows user to save the mean and standard deviation of the amplitudes calculated for every single acquisition run as a data frame to the file.
+
+```{r summary}
+dataAcquisition <- rdatacollider::LargeRDataCollider.startDataAcquisition(acquisitionThreshold = 20, 
+                                                                          numberOfRuns = 100,
+                                                                          dataAcquisitionObj = NULL)
+rdatacollider::LargeRDataCollider.summarizeDataAcquisition(dataAcquisition,
+                                            display = TRUE,
+                                            saveData = FALSE)
+```
+
+### Plotting histograms of the amplitudes data
+
+The last function allows user to plot the histograms of the mean and standard deviation of the amplitudes calculated for every single acquisition run read from a file. The file has a simple format of:
+
+|  | mean | std |
+|:--|:-:|:-:|
+| 1 | 19.8 | 4.89 |
+| 2 | 21.3 | 5.01 |
+
+One can test out these function using the data set from the long acquisition run
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+```{r plot, message=FALSE}
+library(rdatacollider)
+data("amplitude_analysis")
+
+LargeRDataCollider.plotHistograms(amplitude_analysis)
+```
