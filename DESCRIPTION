@@ -1,0 +1,13 @@
+Package: rdatacollider
+Type: Package
+Title: Large R Data Collider data aqusition system
+Version: 0.1.0
+Author: Who wrote it
+Maintainer: Michał Nurek <michal.nurek.dokt@pw.edu.pl>
+Description: The functions allow user to
+    Run acquisition
+    Summarize the measurements
+    Plot the data
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
